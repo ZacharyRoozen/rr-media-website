@@ -233,12 +233,16 @@
     <div class="contact-head" id="ct-head" data-reveal data-d="1">Let's make<br>it belong.</div>
     <div class="contact-body" id="ct-body" data-reveal data-d="2">Tell us about your vision, we can help take care of the rest.</div>
 
-    <form id="contact-form" data-reveal data-d="3" method="post" action="#">
+    <form id="contact-form" data-reveal data-d="3" method="POST" action="https://api.web3forms.com/submit">
+      <input type="hidden" name="access_key" value="8e66ccb9-dcfa-4c1c-9318-4800d2a3a6a7">
+      <input type="hidden" name="subject" value="New R&amp;R Media enquiry">
+      <input type="hidden" name="from_name" value="R&amp;R Media Website">
+      <input type="checkbox" name="botcheck" tabindex="-1" aria-hidden="true" style="display:none">
       <div class="rr-frow">
-        <input type="text" id="ct-name" name="name" placeholder="Your name">
-        <input type="email" name="email" placeholder="Email address">
+        <input type="text" id="ct-name" name="name" placeholder="Your name" required autocomplete="name">
+        <input type="email" name="email" placeholder="Email address" required autocomplete="email">
       </div>
-      <input type="text" id="ct-org" name="company" placeholder="Company / Brand name">
+      <input type="text" id="ct-org" name="company" placeholder="Company / Brand name" autocomplete="organization">
       <select id="ct-select" name="interest">
         <option value="" disabled selected>What are you looking for?</option>
         <option>UGC Pipeline Build</option>
@@ -248,7 +252,7 @@
         <option>Consultation</option>
         <option>Something else</option>
       </select>
-      <textarea id="ct-message" name="message" placeholder="Tell us about your project..."></textarea>
+      <textarea id="ct-message" name="message" placeholder="Tell us about your project..." required></textarea>
 
       <!-- Which CTA sent them here — filled by js/app.js -->
       <input type="hidden" id="lead_cta" name="lead_cta">
@@ -259,6 +263,7 @@
       <input type="hidden" id="lead_audience" name="lead_audience" value="brand">
 
       <button type="submit" id="ct-submit" class="btn-red">Send it →</button>
+      <div id="ct-status" role="status" aria-live="polite" hidden></div>
     </form>
   </div>
 </section>

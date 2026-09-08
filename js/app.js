@@ -275,3 +275,47 @@
     init();
   }
 })();
+
+
+/* ── Web3Forms submit (AJAX, keeps the visitor on the page) ────────────────── */
+(function () {
+  var form = document.getElementById('contact-form');
+  if (!form) return;
+  var btn = document.getElementById('ct-submit');
+  var status = document.getElementById('ct-status');
+
+  function show(state, msg) {
+    if (!status) return;
+    status.hidden = false;
+    status.setAttribute('data-state', state);
+    status.textContent = msg;
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var label = btn ? btn.textContent : '';
+    if (btn) { btn.disabled = true; btn.textContent = 'Sending\u2026'; }
+    show('pending', 'Sending\u2026');
+
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: new FormData(form)
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (data.success) {
+          form.reset();
+          if (btn) { btn.textContent = 'Sent'; }
+          show('ok', 'Got it \u2014 we\u2019ll be in touch within one business day.');
+        } else {
+          if (btn) { btn.disabled = false; btn.textContent = label; }
+          show('err', 'That didn\u2019t go through. Try again, or email us at info@rrmediamarketing.com.');
+        }
+      })
+      .catch(function () {
+        if (btn) { btn.disabled = false; btn.textContent = label; }
+        show('err', 'Connection dropped. Try again, or email us at info@rrmediamarketing.com.');
+      });
+  });
+})();

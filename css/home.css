@@ -205,3 +205,13 @@ body.debug-grid #work::before {
   color: #00E5FF; z-index: 50;
 }
 body.debug-grid #work { position: relative; }
+
+/* ── Contact form submit status ────────────────────────────────────────────── */
+#ct-status {
+  font: 400 13px/1.5 'Sora', sans-serif; letter-spacing: 0.02em;
+  margin-top: 14px; padding: 14px 18px;
+  border-left: 2px solid rgba(244,240,236,0.2); color: rgba(244,240,236,0.72);
+}
+#ct-status[data-state="ok"]  { border-left-color: #C8191A; color: #F4F0EC; }
+#ct-status[data-state="err"] { border-left-color: rgba(244,240,236,0.45); color: rgba(244,240,236,0.78); }
+#contact-form button[disabled] { opacity: 0.55; pointer-events: none; }
